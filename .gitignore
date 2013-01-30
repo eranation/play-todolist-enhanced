@@ -1,19 +1,19 @@
 # Extracted from https://github.com/ulrich/macaron-factory/blob/master/.gitignore
 # Ignore all dotfiles...
-.*
+#.*
 # except for .gitignore
-!.gitignore
+#!.gitignore
 
 
 *.eml
 *.iml
 .history
 /*.iml
-/.classpath
+#/.classpath
 /.idea
 /.idea_modules
-/.project
-/.settings
+#/.project
+#/.settings
 /.target
 /out
 /RUNNING_PID
