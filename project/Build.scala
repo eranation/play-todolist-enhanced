@@ -13,9 +13,11 @@ object ApplicationBuild extends Build {
     anorm,
     "postgresql" % "postgresql" % "8.4-702.jdbc4"
   )
-
+  
+  
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
+    //  scalaVersion := "2.9.0-1"
     // Add your own project settings here      
   )
 

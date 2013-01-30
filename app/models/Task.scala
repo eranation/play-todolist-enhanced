@@ -8,8 +8,8 @@ import java.sql.Connection
 case class Task(id: Long, label: String) 
 object Task {
   val task = {
-    get[Long]("id") ~
-    get[String]("label") map {
+    get[Long]("task.id") ~
+    get[String]("task.label") map {
       case id ~ label => Task(id, label)
     }
   }
@@ -31,11 +31,27 @@ object Task {
       ).executeUpdate()
     }
   }
+  
+  def update(id:Long, label: String) {
+    DB.withConnection { implicit c =>
+    SQL("update task set label = {label} where id = {id}").on(
+        'label -> label,
+        'id -> id
+        ).executeUpdate()
+    }
+  }
   def delete(id: Long){
     DB.withConnection { implicit c =>
       SQL("delete from task where id = {id}").on(
           'id-> id
       ).executeUpdate()
+    }
+  }
+  
+  def findById(id: Long):Task = {
+      DB.withConnection { implicit c =>
+        SQL("select * from task where id = {id}").on('id->id).as(task.single)
+        //SQL("select * from task where id = {id}").on('id->id).single(task)
     }
   }
 }

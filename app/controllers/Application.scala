@@ -33,4 +33,18 @@ object Application extends Controller {
     Task.delete(id)
     Redirect(routes.Application.tasks)
   }
+  
+  def showTask(id: Long) = Action {
+    val task = Task.findById(id)
+    Ok(views.html.task(task, taskForm.fill(task.label)))
+  }
+  
+  def editTask(id:Long) = Action { implicit request =>
+    taskForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.index(Task.all(), errors)),
+      label => {
+        Task.update(id,label)
+        Redirect(routes.Application.tasks)
+      })
+  }
 }
